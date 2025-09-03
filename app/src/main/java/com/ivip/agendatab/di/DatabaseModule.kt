@@ -39,12 +39,14 @@ object DatabaseModule {
     fun provideCalendarViewModel(
         getDailyEntriesUseCase: GetDailyEntriesUseCase,
         saveDailyEntryUseCase: SaveDailyEntryUseCase,
-        deleteDailyEntryUseCase: DeleteDailyEntryUseCase
+        deleteDailyEntryUseCase: DeleteDailyEntryUseCase,
+        context: Context
     ): CalendarViewModel {
         return CalendarViewModel(
             getDailyEntriesUseCase,
             saveDailyEntryUseCase,
-            deleteDailyEntryUseCase
+            deleteDailyEntryUseCase,
+            context
         )
     }
 }

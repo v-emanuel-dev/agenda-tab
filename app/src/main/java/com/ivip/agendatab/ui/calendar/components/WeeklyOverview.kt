@@ -13,11 +13,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ivip.agendatab.R
 import com.ivip.agendatab.domain.model.DailyEntry
+import com.ivip.agendatab.domain.model.Mood
 import com.ivip.agendatab.ui.theme.MoodColors
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -30,12 +34,18 @@ fun WeeklyOverview(
     onDayClick: (LocalDate) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     val today = LocalDate.now()
-    val last7Days = (6 downTo 0).map { today.minusDays(it.toLong()) }
+
+    // Calcula o início da semana (segunda-feira)
+    val startOfWeek = today.minusDays((today.dayOfWeek.value - 1).toLong())
+
+    // Gera os 7 dias da semana atual
+    val currentWeek = (0..6).map { startOfWeek.plusDays(it.toLong()) }
 
     Column(modifier = modifier) {
         Text(
-            text = "This Week",
+            text = stringResource(R.string.this_week),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 12.dp)
@@ -43,9 +53,9 @@ fun WeeklyOverview(
 
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.heightIn(max = 400.dp) // Limit height to prevent taking too much space
+            modifier = Modifier.heightIn(max = 400.dp)
         ) {
-            items(last7Days) { date ->
+            items(currentWeek) { date ->
                 WeekDayFullCard(
                     date = date,
                     entry = dailyEntries[date],
@@ -65,6 +75,7 @@ private fun WeekDayFullCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     val backgroundColor = if (entry != null) {
         MoodColors.getMoodColor(entry.mood).copy(alpha = 0.1f)
     } else {
@@ -111,13 +122,18 @@ private fun WeekDayFullCard(
                     color = if (isToday) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = date.format(DateTimeFormatter.ofPattern("MMM dd")),
+                    text = date.format(
+                        DateTimeFormatter.ofPattern(
+                            context.getString(R.string.date_format_day_month),
+                            Locale.getDefault()
+                        )
+                    ),
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 if (isToday) {
                     Text(
-                        text = "Today",
+                        text = stringResource(R.string.today),
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
@@ -131,8 +147,15 @@ private fun WeekDayFullCard(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (entry != null) {
+                    val moodText = when (entry.mood) {
+                        Mood.HAPPY -> stringResource(R.string.mood_happy)
+                        Mood.CALM -> stringResource(R.string.mood_calm)
+                        Mood.ANXIOUS -> stringResource(R.string.mood_anxious)
+                        Mood.DEPRESSED -> stringResource(R.string.mood_depressed)
+                    }
+
                     Text(
-                        text = entry.mood.name.lowercase().replaceFirstChar { it.uppercase() },
+                        text = moodText,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
                         color = moodColor
@@ -149,15 +172,13 @@ private fun WeekDayFullCard(
                     }
                 } else {
                     Text(
-                        text = "No mood recorded",
+                        text = stringResource(R.string.no_mood_recorded),
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
                     )
                 }
             }
-
-            // Dentro do WeekDayFullCard, atualizar a seção do indicador de humor:
 
             // Right section: Mood indicator
             Box(

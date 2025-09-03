@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Info -->
+    <string name="app_name">Agenda TAB</string>
+
+    <!-- Navigation -->
+    <string name="back">Back</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="update">Update</string>
+
+    <!-- Calendar -->
+    <string name="previous_month">Previous month</string>
+    <string name="next_month">Next month</string>
+    <string name="today">Today</string>
+    <string name="this_week">This Week</string>
+
+    <!-- Days of week -->
+    <string name="monday_short">Mon</string>
+    <string name="tuesday_short">Tue</string>
+    <string name="wednesday_short">Wed</string>
+    <string name="thursday_short">Thu</string>
+    <string name="friday_short">Fri</string>
+    <string name="saturday_short">Sat</string>
+    <string name="sunday_short">Sun</string>
+
+    <!-- Moods -->
+    <string name="mood_happy">Happy</string>
+    <string name="mood_calm">Calm</string>
+    <string name="mood_anxious">Anxious</string>
+    <string name="mood_depressed">Sad</string>
+    <string name="mood_colors">Mood Colors</string>
+
+    <!-- Edit Entry Screen -->
+    <string name="edit_entry">Edit Entry</string>
+    <string name="how_are_you_feeling">How are you feeling?</string>
+    <string name="select_mood_description">Select the mood that best describes your day</string>
+    <string name="selected_mood">Selected: %1$s</string>
+    <string name="tell_about_day">Tell us about your day</string>
+    <string name="note_description">Write down what made you feel this way, what happened, or any thoughts you\'d like to remember</string>
+    <string name="note_placeholder">What happened today? How are you feeling? Any thoughts or reflections…</string>
+    <string name="character_count">%1$d/%2$d characters</string>
+    <string name="save_entry">Save Entry</string>
+    <string name="update_entry">Update Entry</string>
+
+    <!-- Edit Modal -->
+    <string name="select_mood_label">Select Mood:</string>
+    <string name="note_label">Note:</string>
+    <string name="note_modal_placeholder">How was your day?</string>
+
+    <!-- Accessibility -->
+    <string name="day_mood_description">Day %1$d, %2$s</string>
+    <string name="no_mood_selected">no mood selected</string>
+    <string name="no_mood_recorded">No mood recorded</string>
+
+    <!-- Error Messages -->
+    <string name="failed_to_save">Failed to save entry: %1$s</string>
+    <string name="failed_to_delete">Failed to delete entry: %1$s</string>
+    <string name="failed_to_load">Failed to load entries: %1$s</string>
+
+    <!-- Date Formats -->
+    <string name="date_format_full">EEEE, MMMM dd</string>
+    <string name="date_format_day_month">MMM dd</string>
+    <string name="date_format_month_year">MMMM yyyy</string>
+    <string name="date_format_day">dd</string>
+    <string name="date_format_weekday">EEEE</string>
+    <string name="date_format_month">MMMM yyyy</string>
+</resources>

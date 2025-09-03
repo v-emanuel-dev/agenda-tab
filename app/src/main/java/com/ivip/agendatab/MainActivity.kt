@@ -1,5 +1,7 @@
 package com.ivip.agendatab
 
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,8 +12,25 @@ import androidx.compose.ui.Modifier
 import com.ivip.agendatab.di.DatabaseModule
 import com.ivip.agendatab.ui.navigation.AppNavigation
 import com.ivip.agendatab.ui.theme.AgendaTabTheme
+import java.util.*
 
 class MainActivity : ComponentActivity() {
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(updateBaseContextLocale(newBase))
+    }
+
+    private fun updateBaseContextLocale(context: Context): Context {
+        val locale = Locale("pt", "BR")
+        Locale.setDefault(locale)
+
+        val configuration = Configuration(context.resources.configuration)
+        configuration.setLocale(locale)
+        configuration.setLayoutDirection(locale)
+
+        return context.createConfigurationContext(configuration)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,7 +45,8 @@ class MainActivity : ComponentActivity() {
         val calendarViewModel = DatabaseModule.provideCalendarViewModel(
             getDailyEntriesUseCase,
             saveDailyEntryUseCase,
-            deleteDailyEntryUseCase
+            deleteDailyEntryUseCase,
+            this
         )
 
         setContent {

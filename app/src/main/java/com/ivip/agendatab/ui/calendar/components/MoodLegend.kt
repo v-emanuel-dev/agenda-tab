@@ -11,18 +11,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ivip.agendatab.R
+import com.ivip.agendatab.domain.model.Mood
 import com.ivip.agendatab.ui.theme.MoodColors
 
 @Composable
 fun MoodLegend(
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+
     Column(modifier = modifier) {
         Text(
-            text = "Mood Colors",
+            text = stringResource(R.string.mood_colors),
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.Medium,
             modifier = Modifier.padding(bottom = 8.dp)
@@ -48,8 +54,16 @@ fun MoodLegend(
                             fontSize = 14.sp
                         )
                     }
+
+                    val moodText = when (mood) {
+                        Mood.HAPPY -> stringResource(R.string.mood_happy)
+                        Mood.CALM -> stringResource(R.string.mood_calm)
+                        Mood.ANXIOUS -> stringResource(R.string.mood_anxious)
+                        Mood.DEPRESSED -> stringResource(R.string.mood_depressed)
+                    }
+
                     Text(
-                        text = mood.name.lowercase().replaceFirstChar { it.uppercase() },
+                        text = moodText,
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurface
                     )

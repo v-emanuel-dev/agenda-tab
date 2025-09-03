@@ -1,7 +1,9 @@
 package com.ivip.agendatab.ui.calendar
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ivip.agendatab.R
 import com.ivip.agendatab.domain.model.DailyEntry
 import com.ivip.agendatab.domain.usecase.DeleteDailyEntryUseCase
 import com.ivip.agendatab.domain.usecase.GetDailyEntriesUseCase
@@ -23,7 +25,8 @@ data class CalendarUiState(
 class CalendarViewModel(
     private val getDailyEntriesUseCase: GetDailyEntriesUseCase,
     private val saveDailyEntryUseCase: SaveDailyEntryUseCase,
-    private val deleteDailyEntryUseCase: DeleteDailyEntryUseCase
+    private val deleteDailyEntryUseCase: DeleteDailyEntryUseCase,
+    private val context: Context? = null
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CalendarUiState())
@@ -62,8 +65,10 @@ class CalendarViewModel(
                 saveDailyEntryUseCase(entry)
                 onEditModalDismissed()
             } catch (e: Exception) {
+                val errorMessage = context?.getString(R.string.failed_to_save, e.message)
+                    ?: "Failed to save entry: ${e.message}"
                 _uiState.update {
-                    it.copy(errorMessage = "Failed to save entry: ${e.message}")
+                    it.copy(errorMessage = errorMessage)
                 }
             }
         }
@@ -75,8 +80,10 @@ class CalendarViewModel(
                 deleteDailyEntryUseCase(date)
                 onEditModalDismissed()
             } catch (e: Exception) {
+                val errorMessage = context?.getString(R.string.failed_to_delete, e.message)
+                    ?: "Failed to delete entry: ${e.message}"
                 _uiState.update {
-                    it.copy(errorMessage = "Failed to delete entry: ${e.message}")
+                    it.copy(errorMessage = errorMessage)
                 }
             }
         }
@@ -106,10 +113,12 @@ class CalendarViewModel(
                 }
             }
             .catch { exception ->
+                val errorMessage = context?.getString(R.string.failed_to_load, exception.message)
+                    ?: "Failed to load entries: ${exception.message}"
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = "Failed to load entries: ${exception.message}"
+                        errorMessage = errorMessage
                     )
                 }
             }

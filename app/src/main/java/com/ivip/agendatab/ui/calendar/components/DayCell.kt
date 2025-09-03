@@ -11,11 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ivip.agendatab.R
 import com.ivip.agendatab.domain.model.DailyEntry
 import com.ivip.agendatab.ui.theme.MoodColors
 import java.time.LocalDate
@@ -28,6 +31,7 @@ fun DayCell(
     onClick: (LocalDate) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     val backgroundColor = if (entry != null) {
         MoodColors.getMoodColor(entry.mood)
     } else {
@@ -40,41 +44,59 @@ fun DayCell(
         Color.Gray
     }
 
-    val moodDescription = entry?.mood?.name?.lowercase() ?: "no mood selected"
+    val moodDescription = if (entry != null) {
+        when (entry.mood.name) {
+            "HAPPY" -> context.getString(R.string.mood_happy)
+            "CALM" -> context.getString(R.string.mood_calm)
+            "ANXIOUS" -> context.getString(R.string.mood_anxious)
+            "DEPRESSED" -> context.getString(R.string.mood_depressed)
+            else -> context.getString(R.string.no_mood_selected)
+        }
+    } else {
+        context.getString(R.string.no_mood_selected)
+    }
 
     Box(
         modifier = modifier
-            .size(40.dp)
+            .size(48.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(backgroundColor)
             .clickable { onClick(date) }
             .semantics {
-                contentDescription = "Day ${date.dayOfMonth}, $moodDescription"
+                contentDescription = context.getString(
+                    R.string.day_mood_description,
+                    date.dayOfMonth,
+                    moodDescription
+                )
             },
         contentAlignment = Alignment.Center
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            if (entry != null) {
+        if (entry != null) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
                 Text(
                     text = MoodColors.getMoodEmoji(entry.mood),
-                    fontSize = 16.sp
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(top = 2.dp)
                 )
                 Text(
                     text = date.dayOfMonth.toString(),
                     color = textColor,
-                    fontSize = 10.sp,
-                    fontWeight = if (date == LocalDate.now()) FontWeight.Bold else FontWeight.Normal
-                )
-            } else {
-                Text(
-                    text = date.dayOfMonth.toString(),
-                    color = textColor,
-                    fontSize = 14.sp,
-                    fontWeight = if (date == LocalDate.now()) FontWeight.Bold else FontWeight.Normal
+                    fontSize = 12.sp,
+                    fontWeight = if (date == LocalDate.now()) FontWeight.Bold else FontWeight.Normal,
+                    modifier = Modifier.padding(bottom = 2.dp)
                 )
             }
+        } else {
+            Text(
+                text = date.dayOfMonth.toString(),
+                color = textColor,
+                fontSize = 16.sp,
+                fontWeight = if (date == LocalDate.now()) FontWeight.Bold else FontWeight.Normal
+            )
         }
     }
 }

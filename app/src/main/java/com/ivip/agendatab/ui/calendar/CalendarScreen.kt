@@ -8,14 +8,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ivip.agendatab.R
 import com.ivip.agendatab.ui.calendar.components.CalendarGrid
 import com.ivip.agendatab.ui.calendar.components.MoodLegend
 import com.ivip.agendatab.ui.calendar.components.WeeklyOverview
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun CalendarScreen(
@@ -41,11 +44,19 @@ fun CalendarScreen(
                     viewModel.onMonthChanged(uiState.currentMonth.minusMonths(1))
                 }
             ) {
-                Icon(Icons.Default.KeyboardArrowLeft, contentDescription = "Previous month")
+                Icon(
+                    Icons.Default.KeyboardArrowLeft,
+                    contentDescription = stringResource(R.string.previous_month)
+                )
             }
 
             Text(
-                text = uiState.currentMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy")),
+                text = uiState.currentMonth.format(
+                    DateTimeFormatter.ofPattern(
+                        stringResource(R.string.date_format_month_year),
+                        Locale.getDefault()
+                    )
+                ),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -55,7 +66,10 @@ fun CalendarScreen(
                     viewModel.onMonthChanged(uiState.currentMonth.plusMonths(1))
                 }
             ) {
-                Icon(Icons.Default.KeyboardArrowRight, contentDescription = "Next month")
+                Icon(
+                    Icons.Default.KeyboardArrowRight,
+                    contentDescription = stringResource(R.string.next_month)
+                )
             }
         }
 

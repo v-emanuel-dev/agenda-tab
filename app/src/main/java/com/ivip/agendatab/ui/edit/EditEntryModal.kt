@@ -12,14 +12,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.ivip.agendatab.R
 import com.ivip.agendatab.domain.model.DailyEntry
 import com.ivip.agendatab.domain.model.Mood
 import com.ivip.agendatab.ui.theme.MoodColors
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,6 +34,7 @@ fun EditEntryModal(
     onDelete: () -> Unit,
     onDismiss: () -> Unit
 ) {
+    val context = LocalContext.current
     var selectedMood by remember { mutableStateOf(existingEntry?.mood) }
     var noteText by remember { mutableStateOf(existingEntry?.note ?: "") }
 
@@ -46,19 +51,24 @@ fun EditEntryModal(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Text(
-                    text = "Edit Entry",
+                    text = stringResource(R.string.edit_entry),
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
-                    text = date.format(DateTimeFormatter.ofPattern("MMMM dd, yyyy")),
+                    text = date.format(
+                        DateTimeFormatter.ofPattern(
+                            context.getString(R.string.date_format_full),
+                            Locale.getDefault()
+                        )
+                    ),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Text(
-                    text = "Select Mood:",
+                    text = stringResource(R.string.select_mood_label),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Medium
                 )
@@ -76,7 +86,7 @@ fun EditEntryModal(
                 }
 
                 Text(
-                    text = "Note:",
+                    text = stringResource(R.string.note_label),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Medium
                 )
@@ -85,9 +95,11 @@ fun EditEntryModal(
                     value = noteText,
                     onValueChange = { if (it.length <= 280) noteText = it },
                     modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text("How was your day?") },
+                    placeholder = { Text(stringResource(R.string.note_modal_placeholder)) },
                     maxLines = 4,
-                    supportingText = { Text("${noteText.length}/280") }
+                    supportingText = {
+                        Text(stringResource(R.string.character_count, noteText.length, 280))
+                    }
                 )
 
                 Row(
@@ -99,7 +111,7 @@ fun EditEntryModal(
                             onClick = onDelete,
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text("Delete")
+                            Text(stringResource(R.string.delete))
                         }
                     }
 
@@ -107,7 +119,7 @@ fun EditEntryModal(
                         onClick = onDismiss,
                         modifier = Modifier.weight(1f)
                     ) {
-                        Text("Cancel")
+                        Text(stringResource(R.string.cancel))
                     }
 
                     Button(
@@ -119,7 +131,7 @@ fun EditEntryModal(
                         modifier = Modifier.weight(1f),
                         enabled = selectedMood != null
                     ) {
-                        Text("Save")
+                        Text(stringResource(R.string.save))
                     }
                 }
             }

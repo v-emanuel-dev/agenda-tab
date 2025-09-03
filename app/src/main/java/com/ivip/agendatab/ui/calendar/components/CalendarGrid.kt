@@ -6,14 +6,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ivip.agendatab.R
 import com.ivip.agendatab.domain.model.DailyEntry
 import java.time.LocalDate
 import java.time.YearMonth
-import java.time.format.TextStyle
 import java.time.temporal.WeekFields
 import java.util.*
 
@@ -38,7 +39,15 @@ fun CalendarGrid(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            val daysOfWeek = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+            val daysOfWeek = listOf(
+                stringResource(R.string.monday_short),
+                stringResource(R.string.tuesday_short),
+                stringResource(R.string.wednesday_short),
+                stringResource(R.string.thursday_short),
+                stringResource(R.string.friday_short),
+                stringResource(R.string.saturday_short),
+                stringResource(R.string.sunday_short)
+            )
             daysOfWeek.forEach { day ->
                 Text(
                     text = day,
