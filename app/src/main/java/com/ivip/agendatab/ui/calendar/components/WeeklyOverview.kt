@@ -53,7 +53,7 @@ fun WeeklyOverview(
 
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.heightIn(max = 400.dp)
+            modifier = Modifier.heightIn(max = 600.dp) // Aumentado para acomodar cards maiores
         ) {
             items(currentWeek) { date ->
                 WeekDayFullCard(
@@ -93,7 +93,7 @@ private fun WeekDayFullCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(72.dp)
+            .height(88.dp) // Aumentado de 72dp para 88dp
             .clickable { onClick() },
         elevation = CardDefaults.cardElevation(defaultElevation = cardElevation),
         colors = CardDefaults.cardColors(
@@ -113,13 +113,16 @@ private fun WeekDayFullCard(
         ) {
             // Left section: Date info
             Column(
-                modifier = Modifier.weight(0.3f)
+                modifier = Modifier.weight(0.28f), // Ajustado para dar mais espaço ao texto
+                verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault()),
+                    text = date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()), // Mudado para SHORT
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
-                    color = if (isToday) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                    color = if (isToday) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = date.format(
@@ -129,22 +132,27 @@ private fun WeekDayFullCard(
                         )
                     ),
                     fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 if (isToday) {
                     Text(
                         text = stringResource(R.string.today),
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.primary,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
             }
 
             // Center section: Mood and note
             Column(
-                modifier = Modifier.weight(0.5f),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier.weight(0.52f), // Ajustado para balancear melhor
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 if (entry != null) {
                     val moodText = when (entry.mood) {
@@ -158,16 +166,19 @@ private fun WeekDayFullCard(
                         text = moodText,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = moodColor
+                        color = moodColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                     if (entry.note.isNotBlank()) {
+                        Spacer(modifier = Modifier.height(4.dp)) // Espaçamento entre mood e nota
                         Text(
                             text = entry.note,
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.padding(top = 2.dp)
+                            lineHeight = 16.sp // Melhor controle da altura da linha
                         )
                     }
                 } else {
@@ -175,7 +186,9 @@ private fun WeekDayFullCard(
                         text = stringResource(R.string.no_mood_recorded),
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
+                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
             }
