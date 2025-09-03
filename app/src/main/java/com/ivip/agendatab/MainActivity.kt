@@ -8,10 +8,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.ivip.agendatab.di.DatabaseModule
 import com.ivip.agendatab.ui.navigation.AppNavigation
 import com.ivip.agendatab.ui.theme.AgendaTabTheme
+import com.ivip.agendatab.ui.theme.ThemeManager
 import java.util.*
 
 class MainActivity : ComponentActivity() {
@@ -34,6 +37,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Initialize ThemeManager
+        ThemeManager.initialize(this)
+
         val database = DatabaseModule.provideDatabase(this)
         val dao = DatabaseModule.provideDailyEntryDao(database)
         val repository = DatabaseModule.provideMoodRepository(dao)
@@ -50,7 +56,9 @@ class MainActivity : ComponentActivity() {
         )
 
         setContent {
-            AgendaTabTheme {
+            val themeMode by ThemeManager.themeMode.collectAsState()
+
+            AgendaTabTheme(themeMode = themeMode) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

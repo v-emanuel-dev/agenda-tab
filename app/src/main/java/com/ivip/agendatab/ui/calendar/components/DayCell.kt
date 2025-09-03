@@ -35,13 +35,13 @@ fun DayCell(
     val backgroundColor = if (entry != null) {
         MoodColors.getMoodColor(entry.mood)
     } else {
-        MoodColors.DEFAULT
+        MoodColors.DEFAULT  // Usar sempre o cinza padrão quando não há entrada
     }
 
     val textColor = if (isCurrentMonth) {
-        if (entry != null) Color.White else MaterialTheme.colorScheme.onSurface
+        Color.Black // Sempre preto para dias do mês atual
     } else {
-        Color.Gray
+        Color.Gray // Cinza apenas para dias de outros meses
     }
 
     val moodDescription = if (entry != null) {

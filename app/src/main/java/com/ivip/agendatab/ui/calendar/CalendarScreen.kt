@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,6 +17,7 @@ import com.ivip.agendatab.R
 import com.ivip.agendatab.ui.calendar.components.CalendarGrid
 import com.ivip.agendatab.ui.calendar.components.MoodLegend
 import com.ivip.agendatab.ui.calendar.components.WeeklyOverview
+import com.ivip.agendatab.ui.components.ThemeSelector
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -26,6 +28,7 @@ fun CalendarScreen(
     onNavigateToEdit: (LocalDate) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    var showThemeSelector by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -33,7 +36,7 @@ fun CalendarScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Header with month navigation
+        // Header with month navigation and theme button
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -61,15 +64,26 @@ fun CalendarScreen(
                 fontWeight = FontWeight.Bold
             )
 
-            IconButton(
-                onClick = {
-                    viewModel.onMonthChanged(uiState.currentMonth.plusMonths(1))
+            Row {
+                IconButton(
+                    onClick = { showThemeSelector = true }
+                ) {
+                    Icon(
+                        Icons.Default.Settings,
+                        contentDescription = stringResource(R.string.theme_settings)
+                    )
                 }
-            ) {
-                Icon(
-                    Icons.Default.KeyboardArrowRight,
-                    contentDescription = stringResource(R.string.next_month)
-                )
+
+                IconButton(
+                    onClick = {
+                        viewModel.onMonthChanged(uiState.currentMonth.plusMonths(1))
+                    }
+                ) {
+                    Icon(
+                        Icons.Default.KeyboardArrowRight,
+                        contentDescription = stringResource(R.string.next_month)
+                    )
+                }
             }
         }
 
@@ -100,6 +114,13 @@ fun CalendarScreen(
                 CircularProgressIndicator()
             }
         }
+    }
+
+    // Theme selector modal
+    if (showThemeSelector) {
+        ThemeSelector(
+            onDismiss = { showThemeSelector = false }
+        )
     }
 
     // Error handling

@@ -8,7 +8,7 @@ object MoodColors {
     val CALM = Color(0xFF2196F3)
     val ANXIOUS = Color(0xFFFF9800)
     val DEPRESSED = Color(0xFFF44336)
-    val DEFAULT = Color(0xFFF5F5F5)
+    val DEFAULT = Color(0xFFBDBDBD) // Cinza mais escuro e visível
 
     fun getMoodColor(mood: Mood?): Color {
         return when (mood) {

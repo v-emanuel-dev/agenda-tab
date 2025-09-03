@@ -66,4 +66,10 @@
     <string name="date_format_day">dd</string>
     <string name="date_format_weekday">EEEE</string>
     <string name="date_format_month">MMMM yyyy</string>
+
+    <!-- Configurações de Tema -->
+    <string name="theme_settings">Configurações de Tema</string>
+    <string name="dark_theme">Tema Escuro</string>
+    <string name="light_theme">Tema Claro</string>
+    <string name="system_theme">Seguir Sistema</string>
 </resources>
