@@ -38,10 +38,12 @@ fun DayCell(
         MoodColors.DEFAULT  // Usar sempre o cinza padrão quando não há entrada
     }
 
-    val textColor = if (isCurrentMonth) {
-        Color.Black // Sempre preto para dias do mês atual
-    } else {
-        Color.Gray // Cinza apenas para dias de outros meses
+    val isToday = date == LocalDate.now()
+
+    val textColor = when {
+        isToday -> Color(0xFF8B0000) // Vermelho escuro para o dia atual
+        isCurrentMonth -> Color.Black // Sempre preto para dias do mês atual
+        else -> Color.Gray // Cinza apenas para dias de outros meses
     }
 
     val moodDescription = if (entry != null) {
@@ -86,7 +88,7 @@ fun DayCell(
                     text = date.dayOfMonth.toString(),
                     color = textColor,
                     fontSize = 12.sp,
-                    fontWeight = if (date == LocalDate.now()) FontWeight.Bold else FontWeight.Normal,
+                    fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal,
                     modifier = Modifier.padding(bottom = 2.dp)
                 )
             }
@@ -95,7 +97,7 @@ fun DayCell(
                 text = date.dayOfMonth.toString(),
                 color = textColor,
                 fontSize = 16.sp,
-                fontWeight = if (date == LocalDate.now()) FontWeight.Bold else FontWeight.Normal
+                fontWeight = if (isToday) FontWeight.Bold else FontWeight.Normal
             )
         }
     }

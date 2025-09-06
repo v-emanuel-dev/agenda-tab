@@ -40,6 +40,7 @@ class MainActivity : ComponentActivity() {
         // Initialize ThemeManager
         ThemeManager.initialize(this)
 
+        // Initialize database and dependencies
         val database = DatabaseModule.provideDatabase(this)
         val dao = DatabaseModule.provideDailyEntryDao(database)
         val repository = DatabaseModule.provideMoodRepository(dao)
@@ -63,7 +64,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AppNavigation(calendarViewModel = calendarViewModel)
+                    // Navegação principal com tela de boas-vindas incluída
+                    AppNavigation(
+                        calendarViewModel = calendarViewModel,
+                        context = this@MainActivity
+                    )
                 }
             }
         }

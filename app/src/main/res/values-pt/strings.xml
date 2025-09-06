@@ -72,4 +72,53 @@
     <string name="dark_theme">Tema Escuro</string>
     <string name="light_theme">Tema Claro</string>
     <string name="system_theme">Seguir Sistema</string>
+
+    <!-- Seletor de Data -->
+    <string name="select_date">Selecionar Data</string>
+    <string name="year">Ano</string>
+    <string name="month">Mês</string>
+    <string name="select">Selecionar</string>
+    <string name="previous">Anterior</string>
+    <string name="next">Próximo</string>
+
+    <!-- Welcome Screen Strings -->
+    <string name="welcome_title">Bem-vindo ao Agenda TAB</string>
+    <string name="welcome_subtitle">Sua jornada de autoconhecimento emocional começa aqui</string>
+
+    <!-- App Introduction -->
+    <string name="intro_title">Conheça seu bem-estar emocional</string>
+    <string name="intro_description">O Agenda TAB te ajuda a acompanhar seus humores diários, identificar padrões e desenvolver maior consciência sobre seu estado emocional.</string>
+
+    <!-- Features -->
+    <string name="feature_calendar_title">Calendário Visual</string>
+    <string name="feature_calendar_desc">Veja seus humores em um calendário colorido e intuitivo</string>
+    <string name="feature_insights_title">Visão Semanal</string>
+    <string name="feature_insights_desc">Acompanhe tendências e padrões em seus registros</string>
+    <string name="feature_privacy_title">Privacidade Total</string>
+    <string name="feature_privacy_desc">Seus dados ficam apenas no seu dispositivo</string>
+
+    <!-- Mood Tracking Explanation -->
+    <string name="mood_tracking_title">Como funciona o registro de humor</string>
+    <string name="mood_tracking_description">Registre como você se sente todos os dias escolhendo entre os humores disponíveis e adicionando suas anotações pessoais.</string>
+    <string name="mood_tracking_tip">💡 Dica: Registre seu humor sempre no mesmo horário para criar um hábito saudável!</string>
+
+    <!-- Ready to start -->
+    <string name="ready_title">Tudo pronto!</string>
+    <string name="ready_description">Você está pronto para começar sua jornada de autoconhecimento. Vamos registrar seu primeiro humor?</string>
+    <string name="start_journey">Iniciar Jornada</string>
+    <string name="get_started">Começar</string>
+
+    <!-- Tutorial Settings -->
+    <string name="tutorial_settings">Configurações do Tutorial</string>
+    <string name="tutorial_settings_description">Revise o tutorial de introdução ao aplicativo a qualquer momento</string>
+    <string name="show_tutorial_again">Ver Tutorial Novamente</string>
+    <string name="confirm_tutorial_title">Reiniciar Tutorial?</string>
+    <string name="confirm_tutorial_message">Isso irá mostrar a tela de boas-vindas novamente. Você poderá revisar como usar o aplicativo.</string>
+    <string name="confirm">Confirmar</string>
+
+    <!-- Tutorial Hint -->
+    <string name="tutorial_hint_title">Primeira vez usando o app?</string>
+    <string name="tutorial_hint_message">Veja nosso tutorial para aprender a usar todos os recursos</string>
+    <string name="review_tutorial">Ver Tutorial</string>
+
 </resources>

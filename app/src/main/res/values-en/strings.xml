@@ -72,4 +72,53 @@
     <string name="dark_theme">Dark Theme</string>
     <string name="light_theme">Light Theme</string>
     <string name="system_theme">Follow System</string>
+
+    <!-- Date Picker -->
+    <string name="select_date">Select Date</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="select">Select</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+
+    <!-- Welcome Screen Strings -->
+    <string name="welcome_title">Welcome to Agenda TAB</string>
+    <string name="welcome_subtitle">Your emotional self-awareness journey starts here</string>
+
+    <!-- App Introduction -->
+    <string name="intro_title">Know your emotional wellbeing</string>
+    <string name="intro_description">Agenda TAB helps you track your daily moods, identify patterns, and develop greater awareness about your emotional state.</string>
+
+    <!-- Features -->
+    <string name="feature_calendar_title">Visual Calendar</string>
+    <string name="feature_calendar_desc">See your moods in a colorful and intuitive calendar</string>
+    <string name="feature_insights_title">Weekly Overview</string>
+    <string name="feature_insights_desc">Track trends and patterns in your records</string>
+    <string name="feature_privacy_title">Complete Privacy</string>
+    <string name="feature_privacy_desc">Your data stays only on your device</string>
+
+    <!-- Mood Tracking Explanation -->
+    <string name="mood_tracking_title">How mood tracking works</string>
+    <string name="mood_tracking_description">Record how you feel every day by choosing from available moods and adding your personal notes.</string>
+    <string name="mood_tracking_tip">💡 Tip: Record your mood at the same time every day to create a healthy habit!</string>
+
+    <!-- Ready to start -->
+    <string name="ready_title">All set!</string>
+    <string name="ready_description">You\'re ready to start your self-awareness journey. Shall we record your first mood?</string>
+    <string name="start_journey">Start Journey</string>
+    <string name="get_started">Get Started</string>
+
+    <!-- Tutorial Settings -->
+    <string name="tutorial_settings">Tutorial Settings</string>
+    <string name="tutorial_settings_description">Review the app introduction tutorial at any time</string>
+    <string name="show_tutorial_again">Show Tutorial Again</string>
+    <string name="confirm_tutorial_title">Restart Tutorial?</string>
+    <string name="confirm_tutorial_message">This will show the welcome screen again. You can review how to use the app.</string>
+    <string name="confirm">Confirm</string>
+
+    <!-- Tutorial Hint -->
+    <string name="tutorial_hint_title">First time using the app?</string>
+    <string name="tutorial_hint_message">Check out our tutorial to learn how to use all features</string>
+    <string name="review_tutorial">View Tutorial</string>
+
 </resources>
